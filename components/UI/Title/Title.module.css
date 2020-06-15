@@ -1,0 +1,40 @@
+.title {
+  margin-top: 0;
+  line-height: var(--title-line-height);
+
+  &:not(:last-child) {
+    margin-bottom: var(--space-md)
+  }
+}
+
+.title1 {
+  font-size: var(--title1-font-size);
+  color: var(--title1-color);
+  font-weight: var(--title1-font-weight);
+}
+
+.title2 {
+  font-size: var(--title2-font-size);
+  color: var(--title2-color);
+  font-weight: var(--title2-font-weight);
+}
+
+.title3 {
+  font-size: var(--title3-font-size);
+  color: var(--title3-color);
+  font-weight: var(--title3-font-weight);
+}
+
+.titleSpaceBig {
+
+  &:not(:last-child) {
+    margin-bottom: var(--space-lg)
+  }
+}
+
+.titleSpaceExtra {
+
+  &:not(:last-child) {
+    margin-bottom: var(--space-xl)
+  }
+}

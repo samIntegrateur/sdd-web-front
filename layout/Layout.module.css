@@ -1,0 +1,15 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.layout__item {
+    min-height: 0;
+    min-width: 0;
+}
+
+.layout__main {
+    flex-grow: 1;
+}

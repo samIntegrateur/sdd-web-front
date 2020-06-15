@@ -1,0 +1,59 @@
+.btn {
+  border-style: var(--btn-border-style);
+  border-width: var(--btn-border-width);
+  border-radius: var(--btn-border-radius);
+  font-weight: var(--btn-font-weight);
+  font-family: var(--btn-font);
+  font-size: var(--btn-font-size);
+  padding: var(--btn-padding);
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  text-decoration: none;
+  transition: var(--btn-transition);
+}
+
+.btn:hover,
+.btn:focus {
+  text-decoration: none;
+}
+
+/* todo : btn group */
+.btn + .btn {
+  margin-left: var(--space-md);
+}
+
+.btn:disabled,
+.btn:disabled:hover,
+.btn:disabled:focus {
+  color: #aaa;
+  border-color: #ccc;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.btnMain {
+  color: var(--btn-main-color);
+  background-color: var(--btn-main-bg);
+  border-color: var(--btn-main-border-color);
+}
+
+.btnMain:hover,
+.btnMain:focus {
+  color: var(--btn-main-color-hover);
+  background-color: var(--btn-main-bg-hover);
+  border-color: var(--btn-main-border-color-hover);
+}
+
+.btnAlt {
+  color: var(--btn-alt-color);
+  background-color: var(--btn-alt-bg);
+  border-color: var(--btn-alt-border-color);
+}
+
+.btnAlt:hover,
+.btnAlt:focus {
+  color: var(--btn-alt-color-hover);
+  background-color: var(--btn-alt-bg-hover);
+  border-color: var(--btn-alt-border-color-hover);
+}
