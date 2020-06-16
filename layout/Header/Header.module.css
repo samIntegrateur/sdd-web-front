@@ -26,9 +26,15 @@
 
 }
 
-.header__logoImg {
-  height: 70px;
+.header__logoLink {
+  display: block;
 }
+
+.header__logoSvg {
+  height: 4rem;
+  fill: var(--primary-color);
+}
+
 .header__nav {
 
 }

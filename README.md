@@ -1,7 +1,19 @@
-To jetBrains IDE users (IntelliJ, Webstorm)
+## Ide config
+For jetBrains IDE users (IntelliJ, Webstorm)
 For a better experience, install / enable "stylelint" and "postcss" plugins
 Then in File | Settings | Languages & Frameworks | Style Sheets | Dialects, add postcss
 
+## Svg and icons use
+This project uses [react-svgr](https://react-svgr.com/docs/cli/) (cli version)
+
+Procedure:
+- Add new svg files in /public/svg
+- Run "npm run build:svg" in a terminal to generate react components in /components/Svg
+- You can either import directly the specified svg
+- Or use the Icon "wrapper" component (/components/Icon), useful if it's an icon
+
+nb: I have created the /tools/svgr-index-template.js to make one exported object, 
+in order to make the icon handler easier.
 
 ---
 #Default generated doc

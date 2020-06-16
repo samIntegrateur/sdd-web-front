@@ -1,0 +1,27 @@
+.icon {
+  width: 1.2em;
+  height: 1.2em;
+  fill: white;
+}
+
+.iconBig {
+  width: 2em;
+  height: 2em;
+}
+
+.iconExtra {
+  width: 3em;
+  height: 3em;
+}
+
+.iconBlack {
+  fill: var(--gray-dark);
+}
+
+.iconPrimary {
+  fill: var(--primary-color);
+}
+
+.iconSecondary {
+  fill: var(--secondary-color);
+}
