@@ -3,9 +3,23 @@ import Container from '../Container/Container';
 import classes from './Header.module.css';
 import Link from 'next/link';
 import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
+import { login } from '../../shared/api/auth/auth';
 
 
 const Header: React.FC = () => {
+
+  const loginHandler = async () => {
+    const response = await login('samuel.desbos@gmail.com', '111111');
+    console.log('response', response);
+  };
+
+  const logoutHandler = () => {
+
+  };
+
+  const registerHandler = () => {
+
+  };
 
   return (
     <header className={classes.header}>
@@ -19,7 +33,9 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          nav todo
+          <button type="button" onClick={loginHandler}>Login</button>
+          <button type="button" onClick={logoutHandler}>Logout</button>
+          <button type="button" onClick={registerHandler}>Register</button>
 
         </div>
       </Container>
