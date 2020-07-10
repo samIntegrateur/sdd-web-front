@@ -2,6 +2,13 @@ export interface ErrorItem {
   message: string;
 }
 
+// Errors returned by graphQL
+export interface GraphQLErrors {
+  message: string;
+  [key: string]: any; // to specify
+}
+
+// Formatted response error we return
 export interface ApiResponseError {
   userReadable: boolean;
   message?: string;
@@ -11,10 +18,7 @@ export interface ApiResponseError {
 // The object returned by fetch / json
 // handle 200 / 201 cases (can wrap errors though)
 export interface ApiResponse<T> {
-  errors?: [{
-    message: string;
-    [key: string]: any; // to specify
-  }];
+  errors?: GraphQLErrors[];
   data?: T;
 }
 

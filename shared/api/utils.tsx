@@ -1,4 +1,27 @@
-import { ApiResponseData, ApiResponseError } from './api.types';
+import { ApiResponse, ApiResponseData, ErrorItem, GraphQLErrors } from './api.types';
+import { API_BASE_URL } from '../constants';
+import exp from 'constants';
+
+export const fetchGraphql = async (query: { query: string }): Promise<Response> => {
+
+  const response = await fetch(`${API_BASE_URL}/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(query),
+  });
+
+  checkResponse(response);
+
+  return response;
+};
+
+export const checkResponse = (response: Response) => {
+  if (response.status !== 200 && response.status !== 201) {
+    return handleTechnicalError(new Error('Invalid response'), response);
+  }
+}
 
 export const handleTechnicalError = (
   e: Error,
@@ -19,3 +42,19 @@ export const handleTechnicalError = (
     }
   }
 };
+
+export const handleResponseErrors = (errors: GraphQLErrors[]): ApiResponseData<void> => {
+  const sanitizedErrors: ErrorItem[] = errors.map(error => {
+    return {
+      message: error.message,
+    };
+  });
+
+  return {
+    success: false,
+    errors: {
+      userReadable: true,
+      errorList: sanitizedErrors,
+    },
+  };
+}

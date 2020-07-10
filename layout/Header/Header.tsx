@@ -3,8 +3,8 @@ import Container from '../Container/Container';
 import classes from './Header.module.css';
 import Link from 'next/link';
 import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
-import { login } from '../../shared/api/auth/auth';
-
+import { login } from '../../shared/api/user/login/login';
+import { logout } from '../../shared/api/user/logout/logout';
 
 const Header: React.FC = () => {
 
@@ -13,8 +13,9 @@ const Header: React.FC = () => {
     console.log('response', response);
   };
 
-  const logoutHandler = () => {
-
+  const logoutHandler = async () => {
+    const response = await logout();
+    console.log('response', response);
   };
 
   const registerHandler = () => {
