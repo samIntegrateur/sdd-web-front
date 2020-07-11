@@ -1,4 +1,4 @@
-import App from 'next/app';
+// import App from 'next/app';
 import React, { Component } from "react";
 import 'normalize.css/normalize.css';
 import '../public/style/global.css';

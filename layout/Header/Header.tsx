@@ -3,24 +3,37 @@ import Container from '../Container/Container';
 import classes from './Header.module.css';
 import Link from 'next/link';
 import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
-import { login } from '../../shared/api/user/login/login';
+import { useLogin } from '../../shared/api/user/login/login';
 import { logout } from '../../shared/api/user/logout/logout';
 
 const Header: React.FC = () => {
 
-  const loginHandler = async () => {
-    const response = await login('samuel.desbos@gmail.com', '111111');
-    console.log('response', response);
+  const { data, loading, errors } = useLogin({ email: 'sam@gmail.com', password: '111111'});
+
+  const loginHandler = () => {
+    // const response = await login('samuel.desbos@gmail.com', '111111');
+
   };
 
   const logoutHandler = async () => {
-    const response = await logout();
-    console.log('response', response);
+    // const response = await logout();
+    // console.log('response', response);
   };
 
   const registerHandler = () => {
 
   };
+
+  let loginDisplay;
+
+  if (loading) {
+    loginDisplay = <span>loading...</span>;
+  } else if (errors && errors.message) {
+    console.log('errors', errors);
+    loginDisplay = <span>{errors.message}</span>
+  } else if (data && data.login) {
+    loginDisplay = <span>{data.login.user.username}</span>
+  }
 
   return (
     <header className={classes.header}>
@@ -37,6 +50,7 @@ const Header: React.FC = () => {
           <button type="button" onClick={loginHandler}>Login</button>
           <button type="button" onClick={logoutHandler}>Logout</button>
           <button type="button" onClick={registerHandler}>Register</button>
+          { loginDisplay }
 
         </div>
       </Container>

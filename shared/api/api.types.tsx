@@ -25,9 +25,19 @@ export interface ApiResponse<T> {
 // The object returned by the api function
 // Handle each case
 export interface ApiResponseData<T> {
-  success: boolean;
+  // success: boolean;
   data?: T;
+  loading: boolean;
   errors?: ApiResponseError; // todo specify, errors that can be specified to user like validation and authorization,
   // sanitize too, we don't need to return things like stacktrace
   // and "internal" errors with standard message
+}
+
+export interface GraphQlQuery {
+  query: string;
+}
+
+export interface QueryResult<T> {
+  data?: T;
+  errors?: ApiResponseError;
 }

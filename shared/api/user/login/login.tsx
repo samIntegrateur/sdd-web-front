@@ -1,48 +1,65 @@
-import { API_BASE_URL } from '../../../constants';
-import { ApiResponse, ApiResponseData, ErrorItem } from '../../api.types';
-import { fetchGraphql, handleResponseErrors, handleTechnicalError } from '../../utils';
+import { useEffect, useState } from 'react';
+import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types';
+import { handleGraphQlQuery } from '../../utils';
 
 interface LoginResponseData {
-  id: string;
-  username: string;
+  login: {
+    accessToken: string;
+    user : {
+      id: string;
+      username: string;
+    }
+  }
 }
 
-export const login = async (
+interface LoginProps {
   email: string,
   password: string,
-): Promise<ApiResponseData<LoginResponseData | void>> => {
+}
 
-  // todo: https://github.com/apollographql/graphql-tag ?
-  const graphQLQuery = {
-    query: `
-      mutation {
-        login(email: "${email}", password: "${password}") {
-          id
-          username
+export const useLogin = (
+  {
+    email,
+    password,
+  }: LoginProps
+): ApiResponseData<LoginResponseData> => {
+
+  const [query, setQuery] = useState<GraphQlQuery>();
+  const [data, setData] = useState<LoginResponseData>();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<ApiResponseError>();
+
+  useEffect(() => {
+    setQuery({
+      query: `
+        mutation {
+          login(email: "${email}", password: "${password}") {
+            accessToken
+            user {
+              id
+              username
+            }
+          }
         }
-      }
-    `
-  };
+      `
+    });
+  }, [email, password]);
 
-  try {
-    const response = await fetchGraphql(graphQLQuery);
+  useEffect(() => {
+    const makeRequest = async () => {
 
-    console.log('response', response);
+      const queryResult = await handleGraphQlQuery<LoginResponseData>(query!);
 
-    const data: ApiResponse<LoginResponseData> = await response.json();
-
-    console.log('data', data);
-
-    if (data.errors && data.errors.length) {
-      handleResponseErrors(data.errors);
+      setData(queryResult.data);
+      setErrors(queryResult.errors);
     }
 
-    return {
-      success: true,
-      data: data.data,
-    };
+    if (query) {
+      setLoading(true);
+      setErrors(undefined);
+      makeRequest().then(() => setLoading(false));
+    }
+  }, [query]);
 
-  } catch (e) {
-    return handleTechnicalError(e);
-  }
+  return { data, loading, errors };
 };
