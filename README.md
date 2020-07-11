@@ -1,7 +1,23 @@
+# Sdd web front
+
 ## Ide config
 For jetBrains IDE users (IntelliJ, Webstorm)
 For a better experience, install / enable "stylelint" and "postcss" plugins
 Then in File | Settings | Languages & Frameworks | Style Sheets | Dialects, add postcss
+
+## Apollo setup
+This project uses method shown here https://www.youtube.com/watch?v=ZAsZ2hhdj-s
+For the withApollo HOC, the video itsef is inspired by an older version of
+https://hasura.io/learn/graphql/nextjs-fullstack-serverless/apollo-client/
+
+DOn't know it's the best solution, maybe update or see this
+https://dev.to/angad777/setting-up-apollo-graphql-in-next-js-with-server-side-rendering-45l5
+or https://github.com/lfades/next-with-apollo
+
+- <b>Apollo client</b> (Apollo boost migration to handle token refresh) to add some automation
+- A <b>custom withApollo HOC</b>, to connect Next server to our Node server and Next client
+- <b>@graphql-codegen</b> to generate automatically types and hooks for graphql requests
+
 
 ## Svg and icons use
 This project uses [react-svgr](https://react-svgr.com/docs/cli/) (cli version)
