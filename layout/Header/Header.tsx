@@ -8,7 +8,7 @@ import { logout } from '../../shared/api/user/logout/logout';
 
 const Header: React.FC = () => {
 
-  const { data, loading, errors } = useLogin({ email: 'sam@gmail.com', password: '111111'});
+  // const { data, loading, errors } = useLogin({ email: 'sam@gmail.com', password: '111111'});
 
   const loginHandler = () => {
     // const response = await login('samuel.desbos@gmail.com', '111111');
@@ -26,14 +26,14 @@ const Header: React.FC = () => {
 
   let loginDisplay;
 
-  if (loading) {
-    loginDisplay = <span>loading...</span>;
-  } else if (errors && errors.message) {
-    console.log('errors', errors);
-    loginDisplay = <span>{errors.message}</span>
-  } else if (data && data.login) {
-    loginDisplay = <span>{data.login.user.username}</span>
-  }
+  // if (loading) {
+  //   loginDisplay = <span>loading...</span>;
+  // } else if (errors && errors.message) {
+  //   console.log('errors', errors);
+  //   loginDisplay = <span>{errors.message}</span>
+  // } else if (data && data.login) {
+  //   loginDisplay = <span>{data.login.user.username}</span>
+  // }
 
   return (
     <header className={classes.header}>

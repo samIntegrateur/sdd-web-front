@@ -31,6 +31,7 @@ export interface ApiResponseData<T> {
   errors?: ApiResponseError; // todo specify, errors that can be specified to user like validation and authorization,
   // sanitize too, we don't need to return things like stacktrace
   // and "internal" errors with standard message
+  triggerQuery: () => void;
 }
 
 export interface GraphQlQuery {
