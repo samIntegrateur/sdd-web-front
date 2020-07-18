@@ -7,7 +7,6 @@ import {
   QueryResult
 } from './api.types';
 import { API_BASE_URL } from '../constants';
-import { getAccessToken } from './user/accessToken';
 
 const checkResponse = (response: Response) => {
   if (response.status !== 200 && response.status !== 201) {
@@ -19,13 +18,11 @@ const checkResponse = (response: Response) => {
 
 const fetchGraphql = async (query: GraphQlQuery): Promise<Response> => {
 
-  const accessToken = getAccessToken();
-
   const response = await fetch(`${API_BASE_URL}/graphql`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': accessToken ? `bearer ${accessToken}` : '',
     },
     body: JSON.stringify(query),
   });

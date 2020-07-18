@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types';
 import { handleGraphQlQuery } from '../../utils';
-import { setAccessToken } from '../accessToken';
 
 interface LoginResponseData {
   login: {
-    accessToken: string;
     user : {
       id: string;
       username: string;
@@ -38,7 +36,6 @@ export const useLogin = (
       query: `
       mutation {
         login(email: "${email}", password: "${password}") {
-          accessToken
           user {
             id
             username
@@ -56,8 +53,8 @@ export const useLogin = (
     console.log('queryResult', queryResult);
     setData(queryResult.data);
 
-    if (queryResult.data?.login?.accessToken) {
-      setAccessToken(queryResult.data?.login?.accessToken);
+    if (queryResult.data?.login) {
+      // todo: provide context
     }
 
     setErrors(queryResult.errors);

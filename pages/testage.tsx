@@ -1,5 +1,6 @@
 import Layout from '../layout/Layout';
 import React from 'react';
+import withAuth from '../hoc/withAuth';
 
 const Testage = () => {
 
@@ -16,4 +17,4 @@ const Testage = () => {
   );
 }
 
-export default Testage;
+export default withAuth(Testage);

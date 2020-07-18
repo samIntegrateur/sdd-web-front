@@ -8,7 +8,6 @@ const path = require('path');
 module.exports = {
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
-    AUTH_TOKEN_COOKIE_NAME: process.env.AUTH_TOKEN_COOKIE_NAME,
-    AUTH_TOKEN_ACCESS_NAME: process.env.AUTH_TOKEN_ACCESS_NAME,
+    TOKEN_NAME: process.env.TOKEN_NAME,
   }
 };

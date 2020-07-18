@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import 'normalize.css/normalize.css';
 import '../public/style/global.css';
 import { AppProps } from 'next/app';
+import { AuthProvider } from '../providers/Auth';
 
 // function MyApp({ Component, pageProps }) {
 //   return <Component {...pageProps} />
@@ -22,7 +23,9 @@ import { AppProps } from 'next/app';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
+    <AuthProvider>
       <Component {...pageProps} />
+    </AuthProvider>
   );
 }
 
