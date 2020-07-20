@@ -3,37 +3,34 @@ import Container from '../Container/Container';
 import classes from './Header.module.css';
 import Link from 'next/link';
 import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
-import { useLogin } from '../../shared/api/user/login/login';
-import { logout } from '../../shared/api/user/logout/logout';
+import { AuthContext } from '../../providers/Auth';
+import { useLogout } from '../../shared/api/user/logout/logout';
 
 const Header: React.FC = () => {
 
-  // const { data, loading, errors } = useLogin({ email: 'sam@gmail.com', password: '111111'});
+  const { user } = useContext<AuthContext>(AuthContext);
 
-  const loginHandler = () => {
-    // const response = await login('samuel.desbos@gmail.com', '111111');
+  const { triggerQuery: triggerLogout } = useLogout({ autoTrigger: false });
 
-  };
+  let userDisplay;
 
-  const logoutHandler = async () => {
-    // const response = await logout();
-    // console.log('response', response);
-  };
-
-  const registerHandler = () => {
-
-  };
-
-  let loginDisplay;
-
-  // if (loading) {
-  //   loginDisplay = <span>loading...</span>;
-  // } else if (errors && errors.message) {
-  //   console.log('errors', errors);
-  //   loginDisplay = <span>{errors.message}</span>
-  // } else if (data && data.login) {
-  //   loginDisplay = <span>{data.login.user.username}</span>
-  // }
+  if (user) {
+    userDisplay = (
+      <>
+        <span>Bonjour {user.username}</span><br />
+       <button type="button" onClick={triggerLogout}>
+         Déconnexion
+       </button>
+      </>
+    );
+  } else {
+    userDisplay = (
+      <>
+        <Link href="/connexion"><a>Connexion</a></Link>
+        <Link href="/inscription"><a>Inscription</a></Link>
+      </>
+    );
+  }
 
   return (
     <header className={classes.header}>
@@ -47,10 +44,8 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          <button type="button" onClick={loginHandler}>Login</button>
-          <button type="button" onClick={logoutHandler}>Logout</button>
-          <button type="button" onClick={registerHandler}>Register</button>
-          { loginDisplay }
+          <Link href="/testage">Testage</Link>
+          { userDisplay }
 
         </div>
       </Container>

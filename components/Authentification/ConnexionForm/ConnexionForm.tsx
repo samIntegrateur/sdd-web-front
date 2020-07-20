@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import { useLogin } from '../../../shared/api/user/login/login';
 
 interface ConnexionFormProps {
@@ -23,7 +23,7 @@ const ConnexionForm: React.FC<ConnexionFormProps> = () => {
   } else if (errors && errors.message) {
     console.log('errors', errors);
     loginDisplay = <span>{errors.message}</span>
-  } else if (data && data.login) {
+  } else if (data?.login?.user) {
     loginDisplay = <span>{data.login.user.username}</span>
   }
 

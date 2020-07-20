@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types';
 import { handleGraphQlQuery } from '../../utils';
+import { AuthContext } from '../../../../providers/Auth';
 
 interface LoginResponseData {
   login: {
     user : {
       id: string;
       username: string;
+      email:  string;
     }
   }
 }
@@ -26,6 +28,8 @@ export const useLogin = (
   }: LoginProps
 ): ApiResponseData<LoginResponseData> => {
 
+  const { setAuthenticated, setUser } = useContext<AuthContext>(AuthContext);
+
   const [query, setQuery] = useState<GraphQlQuery>();
   const [data, setData] = useState<LoginResponseData>();
   const [loading, setLoading] = useState(false);
@@ -34,31 +38,32 @@ export const useLogin = (
   useEffect(() => {
     setQuery({
       query: `
-      mutation {
-        login(email: "${email}", password: "${password}") {
-          user {
-            id
-            username
+        mutation {
+          login(email: "${email}", password: "${password}") {
+            user {
+              id
+              username
+              email
+            }
           }
         }
-      }
-    `
+      `
     });
   }, [email, password]);
 
 
   const makeRequest = useCallback(async () => {
-    console.log('makeRequest');
     const queryResult = await handleGraphQlQuery<LoginResponseData>(query!);
-    console.log('queryResult', queryResult);
     setData(queryResult.data);
 
-    if (queryResult.data?.login) {
-      // todo: provide context
+    if (queryResult.data?.login?.user) {
+      // update context
+      setAuthenticated(true);
+      setUser(queryResult.data?.login?.user);
     }
 
     setErrors(queryResult.errors);
-  }, [query]);
+  }, [query, setAuthenticated, setUser]);
 
   useEffect(() => {
     if (autoTrigger && query) {
@@ -69,7 +74,6 @@ export const useLogin = (
   }, [query, makeRequest, autoTrigger]);
 
   const triggerQuery = () => {
-    console.log('trigger query');
     if (query) {
       setLoading(true);
       setErrors(undefined);
