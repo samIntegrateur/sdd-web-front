@@ -5,36 +5,15 @@ import Link from 'next/link';
 import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
 import { AuthContext } from '../../providers/Auth';
 import { useLogout } from '../../shared/api/user/logout/logout';
+import Nav from '../Nav/Nav';
 
 const Header: React.FC = () => {
 
-  const { user } = useContext<AuthContext>(AuthContext);
 
-  const { triggerQuery: triggerLogout } = useLogout({ autoTrigger: false });
-
-  let userDisplay;
-
-  if (user) {
-    userDisplay = (
-      <>
-        <span>Bonjour {user.username}</span><br />
-       <button type="button" onClick={triggerLogout}>
-         Déconnexion
-       </button>
-      </>
-    );
-  } else {
-    userDisplay = (
-      <>
-        <Link href="/connexion"><a>Connexion</a></Link>
-        <Link href="/inscription"><a>Inscription</a></Link>
-      </>
-    );
-  }
 
   return (
     <header className={classes.header}>
-      <Container>
+      <Container full smallPaddingY>
         <div className={classes.header__row}>
           <div className={classes.header__logo}>
             <Link href="/">
@@ -44,8 +23,9 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          <Link href="/testage">Testage</Link>
-          { userDisplay }
+          <div className={classes.header__nav}>
+            <Nav />
+          </div>
 
         </div>
       </Container>

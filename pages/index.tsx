@@ -6,6 +6,7 @@ import Icon from '../components/Icon/Icon';
 
 const IndexPage = () => (
   <Layout
+    containerFull
     title="Site du don"
     description="Site de dons d'objets. Offrez les objets qui vous encombrent et récupérez gratuitement ceux des autres">
 
@@ -14,9 +15,9 @@ const IndexPage = () => (
       todo: move this
     </p>
 
-    <Icon icon="Test" />
-    <Icon icon="Test" color="primary" size="big" />
-    <Icon icon="Test" color="secondary" size="extra" />
+    <Icon icon="LogIn" />
+    <Icon icon="User" color="primary" size="big" />
+    <Icon icon="ChatBubble" color="secondary" size="extra" />
 
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis eum incidunt quos. Animi deleniti dolore
       minima molestias placeat, quam sed totam? Consequatur est minima minus omnis, repellat rerum tenetur!</p>

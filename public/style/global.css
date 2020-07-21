@@ -95,7 +95,7 @@
   --green-2: #14c685;
 
   --orange: #f6924e;
-  --orange-2: #ee833a;
+  --orange-2: #f58031;
 
   --blue: #19a9e0;
 
@@ -133,7 +133,7 @@
   --main-text-color: var(--white);
   --main-bg: var(--gray-dark);
 
-  --main-font-size: 1rem;
+  --main-font-size: 1.2rem;
   --main-line-height: var(--line-height);
 
   --font-weight-normal: 400;
@@ -162,12 +162,18 @@
   --container-padding-y: 2rem;
   --container-padding-sm-x: 1rem;
   --container-padding-sm-y: 1.5rem;
+  --container-full-padding-x: 3.125rem;
+  --container-small-padding-y: 1rem;
+  --container-small-padding-sm-y: 1rem;
 
   /*
      HEADER
   */
   --header-bg: var(--gray-slate);
   --header-color: var(--white);
+  --header-border-width: 5px;
+  --header-border-style: solid;
+  --header-border-color: var(--primary-color);
 
   /*
      FOOTER
@@ -317,6 +323,17 @@ img {
   & p {
     margin: 0;
   }
+}
+
+/*
+  Firefox needs more specificity to override default button outline
+*/
+:focus,
+button[type="submit"]:focus,
+button[type="button"]:focus {
+  outline: 1px dashed rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+  -moz-outline-radius: 3px;
 }
 
 .sr-only {

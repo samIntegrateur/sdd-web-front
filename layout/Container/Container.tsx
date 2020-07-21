@@ -3,6 +3,8 @@ import classes from './Container.module.css';
 
 interface ContainerProps {
   small?: boolean;
+  full?: boolean;
+  smallPaddingY?: boolean;
 }
 const Container: React.FC<ContainerProps> = (props) => {
 
@@ -10,6 +12,14 @@ const Container: React.FC<ContainerProps> = (props) => {
 
   if (props.small) {
     classList.push(classes.containerSmall);
+  }
+
+  if (props.full) {
+    classList.push(classes.containerFull);
+  }
+
+  if (props.smallPaddingY) {
+    classList.push(classes.containerSmallPaddingY);
   }
   
   return (

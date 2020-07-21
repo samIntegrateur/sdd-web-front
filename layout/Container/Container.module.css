@@ -13,6 +13,24 @@
 
 .containerSmall {
   width: var(--container-small-width);
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.containerSmallPaddingY {
+
+  padding-top: var(--container-small-padding-sm-y);
+  padding-bottom: var(--container-small-padding-sm-y);
+
+  @media (--min-width-md) {
+    padding-top: var(--container-small-padding-y);
+    padding-bottom: var(--container-small-padding-y);
+  }
+}
+
+.containerFull {
+  width: auto;
+
+  @media (--min-width-lg) {
+    padding-left: var(--container-full-padding-x);
+    padding-right: var(--container-full-padding-x);
+  }
 }

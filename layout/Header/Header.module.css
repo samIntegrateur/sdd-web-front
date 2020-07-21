@@ -1,12 +1,7 @@
 .header {
   background-color: var(--header-bg);
   color: var(--header-color);
-}
-
-.header a,
-.header a:hover,
-.header a:focus {
-  color: #fff;
+  border-bottom: var(--header-border-width) var(--header-border-style) var(--header-border-color);
 }
 
 .linkTitle,
@@ -39,21 +34,3 @@
 
 }
 
-.header__navList,
-.header__navListItem {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.header__navList {
-  display: flex;
-  align-items: flex-end;
-}
-
-.header__navListItem + .header__navListItem {
-  margin-left: var(--space-sm);
-}
-
-.header__navLink {
-}
