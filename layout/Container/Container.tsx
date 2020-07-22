@@ -8,7 +8,7 @@ interface ContainerProps {
 }
 const Container: React.FC<ContainerProps> = (props) => {
 
-  const classList = [classes.container];
+  const classList = ['container', classes.container];
 
   if (props.small) {
     classList.push(classes.containerSmall);

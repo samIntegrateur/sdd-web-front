@@ -4,31 +4,31 @@ import { handleGraphQlQuery } from '../../utils';
 import { AuthContext } from '../../../../providers/Auth';
 import { User } from '../../../types/user';
 
-interface LoginResponseData {
-  login: {
-    user : User,
-  }
+interface RegisterResponseData {
+  register: User,
 }
 
-interface LoginProps {
+interface RegisterProps {
+  username: string,
   email: string,
   password: string,
   autoTrigger?: boolean,
 }
 
 // Set autoTrigger to false and use the triggerQuery cb arg to trigger query manually
-export const useLogin = (
+export const useRegister = (
   {
+    username,
     email,
     password,
     autoTrigger = true,
-  }: LoginProps
-): ApiResponseData<LoginResponseData> => {
+  }: RegisterProps
+): ApiResponseData<RegisterResponseData> => {
 
   const { setAuthenticated, setUser } = useContext<AuthContext>(AuthContext);
 
   const [query, setQuery] = useState<GraphQlQuery>();
-  const [data, setData] = useState<LoginResponseData>();
+  const [data, setData] = useState<RegisterResponseData>();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ApiResponseError>();
 
@@ -36,27 +36,31 @@ export const useLogin = (
     setQuery({
       query: `
         mutation {
-          login(email: "${email}", password: "${password}") {
-            user {
-              id
-              username
-              email
-            }
+          register(data: { 
+              username: "${username}", 
+              email: "${email}", 
+              password: "${password}" 
+            }) {
+            id
+            username
+            email
           }
         }
       `
     });
-  }, [email, password]);
+  }, [username, email, password]);
 
 
   const makeRequest = useCallback(async () => {
-    const queryResult = await handleGraphQlQuery<LoginResponseData>(query!);
+    const queryResult = await handleGraphQlQuery<RegisterResponseData>(query!);
+
+    console.log('queryResult', queryResult);
     setData(queryResult.data);
 
-    if (queryResult.data?.login?.user) {
+    if (queryResult.data?.register) {
       // update context
       setAuthenticated(true);
-      setUser(queryResult.data?.login?.user);
+      setUser(queryResult.data.register);
     }
 
     setErrors(queryResult.errors);

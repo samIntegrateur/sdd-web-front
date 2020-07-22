@@ -1,0 +1,37 @@
+.formGroup {
+  display: block;
+}
+
+.formGroup:not(:last-child) {
+  margin-bottom: var(--form-group-margin);
+}
+
+.formGroup__label {
+  display: block;
+  color: var(--form-label-color);
+  font-weight: var(--form-label-font-weight);
+  margin-bottom: var(--form-label-margin);
+}
+
+.formGroup__control {
+  display: block;
+  width: 100%;
+  font-family: var(--form-control-font);
+  font-size: var(--form-control-font-size);
+  font-weight: var(--form-control-font-weight);
+  background-color: var(--form-control-bg);
+  color: var(--form-control-color);
+  padding: var(--form-control-padding);
+  border-color: var(--form-control-border-color);
+  border-width: var(--form-control-border-width);
+  border-style: var(--form-control-border-style);
+}
+
+textarea.formGroup__control {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.formGroupIsInvalid .formGroup__control {
+  border-color: var(--red);
+}

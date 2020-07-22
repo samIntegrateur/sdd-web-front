@@ -1,20 +1,36 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useLogin } from '../../../shared/api/user/login/login';
 import { FormType, HTMLFormControlElement } from '../../../shared/types/form.type';
 import { updateForm } from '../../../shared/form-utils';
 import Spinner from '../../UI/Spinner/Spinner';
-import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
-import Title from '../../UI/Title/Title';
+import Button from '../../UI/Button/Button';
 import Link from 'next/link';
+import Title from '../../UI/Title/Title';
+import { useRegister } from '../../../shared/api/user/register/register';
 import { useRouter } from 'next/router';
 
-const ConnexionForm: React.FC = () => {
+const InscriptionForm: React.FC = () => {
 
   const router = useRouter();
 
   // Form setup
   const initialForm: FormType = {
+    username: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Jean Dupont'
+      },
+      label: 'Nom d\'utilisateur',
+      value: '',
+      validation: {
+        required: true,
+        minLength: 3,
+        maxLength: 15,
+      },
+      valid: false,
+      touched: false
+    },
     email: {
       elementType: 'input',
       elementConfig: {
@@ -40,23 +56,41 @@ const ConnexionForm: React.FC = () => {
       value: '',
       validation: {
         required: true,
-        minLength: 6
+        minLength: 6,
+        maxLength: 20,
       },
       valid: false,
       touched: false
     },
+    confirmPassword: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'password',
+        placeholder: '******'
+      },
+      label: 'Confirmer le mot de passe',
+      value: '',
+      validation: {
+        required: true,
+        minLength: 6,
+        maxLength: 20,
+      },
+      valid: false,
+      touched: false
+    }
   };
 
   const [controls, setControls] = useState<FormType>(initialForm);
   const [formIsValid, setFormIsValid] = useState<boolean>(false);
 
-  // Login hook
+  // Register hook
   const {
     data,
     loading,
     errors,
-    triggerQuery: triggerLogin
-  } = useLogin({
+    triggerQuery: triggerRegister
+  } = useRegister({
+    username: controls.email.value as string,
     email: controls.email.value as string,
     password:  controls.password.value as string,
     autoTrigger: false
@@ -80,11 +114,10 @@ const ConnexionForm: React.FC = () => {
     setFormIsValid(updatedFormValidity);
   };
 
-
   // Submit form
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    triggerLogin();
+    triggerRegister();
   }
 
   // Handle display
@@ -102,33 +135,36 @@ const ConnexionForm: React.FC = () => {
 
   if (loading) {
     formDisplay = <Spinner />;
-  } else if (data?.login) {
+  } else if (data?.register) {
     router.push('/');
   } else {
     formDisplay = (
       <form onSubmit={handleSubmit}>
-        {
-          formElementArray.map(formElement => (
-            <Input
-              key={formElement.id}
-              config={formElement.config}
-              changed={(
-                event: ChangeEvent<HTMLFormControlElement> | CustomEvent
-              ) => inputChangedHandler(event, formElement.id)}
-            />
-          ))
-        }
+
+        <div className="part-big">
+          {
+            formElementArray.map(formElement => (
+              <Input
+                key={formElement.id}
+                config={formElement.config}
+                changed={(
+                  event: ChangeEvent<HTMLFormControlElement> | CustomEvent
+                ) => inputChangedHandler(event, formElement.id)}
+              />
+            ))
+          }
+        </div>
 
         <div className="part">
           <Button
             type="submit"
             disabled={!formIsValid}>
-            Se connecter
+            S'inscrire
           </Button>
         </div>
 
         <p>
-          <Link href="/inscription"><a>Je n'ai pas encore de compte</a></Link>
+          <Link href="/connexion"><a>J'ai déjà un compte</a></Link>
         </p>
       </form>
     );
@@ -141,9 +177,9 @@ const ConnexionForm: React.FC = () => {
       </Title>
 
       {errors?.message &&
-        <p className="error">
-          {errors.message}
-        </p>
+      <p className="error">
+        {errors.message}
+      </p>
       }
 
       {formDisplay}
@@ -152,4 +188,4 @@ const ConnexionForm: React.FC = () => {
   );
 }
 
-export default ConnexionForm;
+export default InscriptionForm;

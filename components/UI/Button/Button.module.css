@@ -27,9 +27,9 @@
 .btn:disabled,
 .btn:disabled:hover,
 .btn:disabled:focus {
-  color: #aaa;
+  color: #828282;
   border-color: #ccc;
-  background-color: #eee;
+  background-color: #cecece;
   cursor: not-allowed;
 }
 

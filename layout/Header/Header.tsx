@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import Container from '../Container/Container';
 import classes from './Header.module.css';
 import Link from 'next/link';
-import SvgSiteDuDon from '../../components/Svg/SiteDuDon';
+import SvgSiteDuDon from '../../components/UI/Svg/SiteDuDon';
 import { AuthContext } from '../../providers/Auth';
 import { useLogout } from '../../shared/api/user/logout/logout';
 import Nav from '../Nav/Nav';

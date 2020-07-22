@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../providers/Auth';
 import { useLogout } from '../../shared/api/user/logout/logout';
 import Link from 'next/link';
-import Icon from '../../components/Icon/Icon';
+import Icon from '../../components/UI/Icon/Icon';
 import classes from './nav.module.css';
-import { SvgNames } from '../../components/Svg';
+import { SvgNames } from '../../components/UI/Svg';
 
 
 interface NavItem {

@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build:svg": "npx @svgr/cli --typescript  --no-dimensions --index-template tools/svgr-index-template.js -d components/Svg public/svg"
+    "build:svg": "npx @svgr/cli --typescript  --no-dimensions --index-template tools/svgr-index-template.js -d components/UI/Svg public/svg"
   },
   "dependencies": {
     "date-fns": "^2.14.0",

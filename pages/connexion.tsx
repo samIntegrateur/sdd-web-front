@@ -2,13 +2,16 @@ import Layout from '../layout/Layout';
 
 import React from 'react';
 import ConnexionForm from '../components/Authentification/ConnexionForm/ConnexionForm';
+import Section from '../layout/Section/Section';
 
 const ConnexionPage = () => (
   <Layout
-    title="Site du don"
-    description="Site de dons d'objets. Offrez les objets qui vous encombrent et récupérez gratuitement ceux des autres">
+    title="Connexion - Site du don"
+    description="Connexion - Site du don">
 
-    <ConnexionForm />
+    <Section containerSmall>
+      <ConnexionForm />
+    </Section>
 
   </Layout>
 )

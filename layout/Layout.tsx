@@ -8,8 +8,6 @@ import Head from 'next/head';
 interface LayoutProps {
   title: string;
   description: string;
-  containerSmall?: boolean;
-  containerFull?: boolean;
 }
 const Layout: React.FC<LayoutProps> = (props) => (
   <>
@@ -23,9 +21,7 @@ const Layout: React.FC<LayoutProps> = (props) => (
     <div className={classes.layout}>
       <Header />
       <main role="main" className={[classes.layout__item, classes.layout__main].join(' ')}>
-        <Container small={props.containerSmall} full={props.containerFull}>
-          {props.children}
-        </Container>
+        {props.children}
       </main>
       <Footer />
     </div>
