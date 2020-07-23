@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Title from '../../UI/Title/Title';
 import { useRegister } from '../../../shared/api/user/register/register';
 import { useRouter } from 'next/router';
+import ServerErrors from '../../UI/ServerErrors/ServerErrors';
 
 const InscriptionForm: React.FC = () => {
 
@@ -74,6 +75,7 @@ const InscriptionForm: React.FC = () => {
         required: true,
         minLength: 6,
         maxLength: 20,
+        isSame: 'password',
       },
       valid: false,
       touched: false
@@ -90,7 +92,7 @@ const InscriptionForm: React.FC = () => {
     errors,
     triggerQuery: triggerRegister
   } = useRegister({
-    username: controls.email.value as string,
+    username: controls.username.value as string,
     email: controls.email.value as string,
     password:  controls.password.value as string,
     autoTrigger: false
@@ -176,11 +178,9 @@ const InscriptionForm: React.FC = () => {
         Connexion
       </Title>
 
-      {errors?.message &&
-      <p className="error">
-        {errors.message}
-      </p>
-      }
+      {errors && (
+          <ServerErrors errors={errors} />
+      )}
 
       {formDisplay}
 

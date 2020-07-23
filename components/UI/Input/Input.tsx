@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
   // Don't handle input value for file, it can causes issues
   const isInputFile = elementType === 'input' && elementConfig?.type === 'file';
 
-  let inputElement = null;
+  let inputElement;
   const formGroupClasses = [classes.formGroup];
 
   if (invalid && shouldValidate && touched && !hideErrors) {
@@ -34,6 +34,7 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
   }
 
   const [inputDisplayValue, setInputDisplayValue] = useState<string>('');
+  const [isComplexValue, setIsComplexValue] = useState<boolean>(false);
 
   // Handle 2 value types (string or object with displayValue and completeValue)
   useEffect(() => {
@@ -41,8 +42,10 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
       return;
     }
     if (typeof value === 'string') {
+      setIsComplexValue(false);
       setInputDisplayValue(value);
     } else if ('displayValue' in value && 'completeValue' in value) {
+      setIsComplexValue(true);
       setInputDisplayValue(value.displayValue);
     }
   }, [value, isInputFile]);
@@ -59,7 +62,11 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
   const inputRef = useRef(null);
 
   const valueProp = isInputFile ? {} : {
-    value: inputDisplayValue,
+    // nb: inputDisplayValue was supposed to work in both case
+    // but with input, it created a bug : on each change the cursor was moved to the end of the input
+    // There could be an issue now if we use an autocomplete with a simple value,
+    // but it has never been handled, so it will need a careful check
+    value: isComplexValue ? inputDisplayValue : value as string,
   };
 
   switch(elementType) {
@@ -117,20 +124,18 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
       }
 
       {inputElement}
-
-      { /* fixme : weird focus bug even if we don't use autocomplete */ }
-
-      {/*{!!autocomplete &&*/}
-      {/*  <Autocomplete*/}
-      {/*    inputRef={inputRef}*/}
-      {/*    // todo: for now we just handle completeValue, handle simple string*/}
-      {/*    searchValue={inputDisplayValue}*/}
-      {/*    updateValueFunction={onCompleteValueChange}*/}
-      {/*    apiCallFunction={autocomplete.apiCallFunction}*/}
-      {/*    resultKey={autocomplete.resultKey}*/}
-      {/*    resultDisplay={autocomplete.resultDisplay}*/}
-      {/*  />*/}
-      {/*}*/}
+      
+      {!!autocomplete &&
+        <Autocomplete
+          inputRef={inputRef}
+          // todo: for now we just handle completeValue, handle simple string
+          searchValue={inputDisplayValue}
+          updateValueFunction={onCompleteValueChange}
+          apiCallFunction={autocomplete.apiCallFunction}
+          resultKey={autocomplete.resultKey}
+          resultDisplay={autocomplete.resultDisplay}
+        />
+      }
 
       {!!errors && !!errors.length && !hideErrors &&
         <div className="errors">

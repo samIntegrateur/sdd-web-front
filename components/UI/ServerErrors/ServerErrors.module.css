@@ -1,0 +1,44 @@
+.serverError {
+  display: block;
+  padding: calc(var(--space-md) + 1em) var(--space-md) var(--space-md);
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  color: var(--error-color);
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: var(--space-md);
+  }
+}
+
+.serverError__title {
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-sm);
+  font-size: 0.9em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 0.8rem;
+  background: var(--error-color);
+  color: white;
+  border-radius: 0 0 5px;
+}
+
+.serverError__list {
+  margin: 0;
+  padding: 0 0 0 1.3em;
+  list-style: disc outside;
+}
+
+.serverError__listItem {
+  margin: 0;
+  padding: 0;
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+}
+
+.serverError__message {
+
+}

@@ -8,6 +8,7 @@ import Input from '../../UI/Input/Input';
 import Title from '../../UI/Title/Title';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ServerErrors from '../../UI/ServerErrors/ServerErrors';
 
 const ConnexionForm: React.FC = () => {
 
@@ -107,17 +108,20 @@ const ConnexionForm: React.FC = () => {
   } else {
     formDisplay = (
       <form onSubmit={handleSubmit}>
-        {
-          formElementArray.map(formElement => (
-            <Input
-              key={formElement.id}
-              config={formElement.config}
-              changed={(
-                event: ChangeEvent<HTMLFormControlElement> | CustomEvent
-              ) => inputChangedHandler(event, formElement.id)}
-            />
-          ))
-        }
+
+        <div className="part-big">
+          {
+            formElementArray.map(formElement => (
+              <Input
+                key={formElement.id}
+                config={formElement.config}
+                changed={(
+                  event: ChangeEvent<HTMLFormControlElement> | CustomEvent
+                ) => inputChangedHandler(event, formElement.id)}
+              />
+            ))
+          }
+        </div>
 
         <div className="part">
           <Button
@@ -140,11 +144,9 @@ const ConnexionForm: React.FC = () => {
         Connexion
       </Title>
 
-      {errors?.message &&
-        <p className="error">
-          {errors.message}
-        </p>
-      }
+      {errors && (
+        <ServerErrors errors={errors} />
+      )}
 
       {formDisplay}
 

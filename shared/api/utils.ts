@@ -7,6 +7,7 @@ import {
   QueryResult
 } from './api.types';
 import { API_BASE_URL } from '../constants';
+import { ValidationError } from 'class-validator';
 
 const checkResponse = (response: Response) => {
   if (response.status !== 200 && response.status !== 201) {
@@ -50,14 +51,37 @@ const handleTechnicalError = (
   }
 };
 
+
+const sanitizeValidationErrors = (validationErrors: ValidationError[]): ErrorItem[] => {
+  const sanitizedErrors: ErrorItem[] = [];
+  validationErrors.forEach(validationError => {
+    if (validationError.constraints) {
+      for (const constraint in validationError.constraints) {
+        sanitizedErrors.push({ message: validationError.constraints[constraint] });
+      }
+    }
+  });
+  return sanitizedErrors;
+}
+
 const handleResponseErrors = (
   errors: GraphQLErrors[]
 ): ApiResponseError => {
   console.log('errors', errors);
-  const sanitizedErrors: ErrorItem[] = errors.map(error => {
-    return {
-      message: error.message,
-    };
+
+  let sanitizedErrors: ErrorItem[] = [];
+
+  errors.forEach(error => {
+
+    // ValidationError case (class-validator - typeGraphql)
+    if (error.message === 'Argument Validation Error') {
+      sanitizedErrors = [
+        ...sanitizedErrors,
+        ...sanitizeValidationErrors(error.extensions.exception.validationErrors),
+      ]
+    } else {
+      sanitizedErrors.push({ message: error.message });
+    }
   });
 
   return {

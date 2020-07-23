@@ -52,6 +52,7 @@ export interface Rules {
   fileMaxSize?: number;
   geoCity?: boolean;
   fileExtension?: string[];
+  isSame?: string,
 }
 
 export type HTMLFormControlElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;

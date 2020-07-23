@@ -6,6 +6,7 @@ import { ChangeEvent } from "react";
 export const checkValidity = (
   value: string | ComplexValue,
   rules: Rules | null,
+  form: FormType,
   file?: Blob | false,
 ): string[] => {
 
@@ -31,6 +32,16 @@ export const checkValidity = (
     if (rules.isEmail) {
       if (!REGEX_EMAIL.test(value)) {
         errors.push('Ce champ doit contenir une adresse e-mail valide.');
+      }
+    }
+
+    if (rules.isSame) {
+      if (!form[rules.isSame]) {
+        throw new Error('[Form validation] The argument provided to the rule "isSame" does not match an existing form control');
+      }
+
+      if (form[rules.isSame].value !== value) {
+        errors.push(`La valeur de ce champ doit être identique à celle du champ "${form[rules.isSame].label}"`);
       }
     }
 
@@ -124,6 +135,7 @@ export const updateForm = (
   const errors = checkValidity(
     newValue,
     form[inputIdentifier].validation || null,
+    form,
     file,
   );
 
