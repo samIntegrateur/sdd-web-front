@@ -11,6 +11,7 @@
   display: inline-block;
   margin: 0;
   text-decoration: none;
+  text-align: center;
   transition: var(--btn-transition);
 }
 

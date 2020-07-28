@@ -63,7 +63,7 @@
 @custom-media --max-width-lg (max-width: 1199px);
 
 @custom-media --min-width-xl (min-width: 1200px);
-@custom-media --min-width-xl (max-width: 1599px);
+@custom-media --max-width-xl (max-width: 1599px);
 
 @custom-media --min-width-xxl (min-width: 1600px);
 
@@ -139,10 +139,9 @@
   --main-line-height: var(--line-height);
 
   --font-weight-normal: 400;
-  --font-weight-semi-bold: 500;
-  --font-weight-bold: 600;
-  --font-weight-bolder: 700;
-  --font-weight-boldest: 800;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-bolder: 800;
 
   /*
     SPACING

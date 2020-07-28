@@ -13,12 +13,18 @@ interface ButtonProps {
   clicked?: (event: React.MouseEvent<HTMLElement>) => void;
   href?: string | UrlObject;
   as?: string | UrlObject;
+  className?: string;
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = (props) => {
 
   const classList = [classes.btn];
   let buttonElement: JSX.Element;
+
+  if (props.className) {
+    const providedClasses = props.className.split(' ');
+    providedClasses.forEach(className => classList.push(className));
+  }
 
   switch (props.style) {
     case ('main'):
@@ -40,7 +46,8 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = (props) => {
   switch (props.type) {
     case ('a'):
       buttonElement = (
-        <Link href={props.href ? props.href : '/'} as={props.as ? props.as : undefined}>
+        <Link href={props.href ? props.href : '/'}
+              as={props.as ? props.as : undefined}>
           <a {...argsList}>
             {props.children}
           </a>
