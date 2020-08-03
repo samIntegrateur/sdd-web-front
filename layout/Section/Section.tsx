@@ -36,42 +36,42 @@ const Section: React.FC<SectionProps> = (
       break;
     case ('div'):
       sectionElement = (
-        <div>
+        <div className='section'>
           {container}
         </div>
       );
       break;
     case ('header'):
       sectionElement = (
-        <header>
+        <header className='section'>
           {container}
         </header>
       );
       break;
     case ('footer'):
       sectionElement = (
-        <footer>
+        <footer className='section'>
           {container}
         </footer>
       );
       break;
     case ('article'):
       sectionElement = (
-        <article>
+        <article className='section'>
           {container}
         </article>
       );
       break;
     case ('aside'):
       sectionElement = (
-        <aside>
+        <aside className='section'>
           {container}
         </aside>
       );
       break;
     default:
       sectionElement = (
-        <section>
+        <section className='section'>
           {container}
         </section>
       );

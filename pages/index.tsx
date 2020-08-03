@@ -22,8 +22,8 @@ const IndexPage = () => {
           <Spinner small />
         ) :
           user ? (
-            <Section containerFull>
-              <p>Bonjour {user.username}&nbsp;!</p>
+            <Section containerFull tag="header">
+              <Title type="h1" style="title1">Bonjour {user.username}&nbsp;!</Title>
             </Section>
           ) : (
             <Headband />

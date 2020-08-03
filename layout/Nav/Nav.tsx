@@ -41,7 +41,7 @@ const Nav: React.FC = () => {
     {
       label: "Mon compte",
       icon: "User",
-      actionLink: "mon-compte",
+      actionLink: "compte",
     },
     {
       label: "Se déconnecter",
