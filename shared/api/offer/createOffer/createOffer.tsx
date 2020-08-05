@@ -1,66 +1,59 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types';
 import { handleGraphQlQuery } from '../../utils';
-import { AuthContext } from '../../../../providers/Auth';
-import { User } from '../../../types/user.type';
+import { Offer } from '../../../types/offer.type';
 
-interface LoginResponseData {
-  login: {
-    user : User,
-  }
+interface CreateOfferResponseData {
+  createOffer: Offer;
 }
 
-interface LoginProps {
-  email: string,
-  password: string,
-  autoTrigger?: boolean,
+interface CreateOfferProps {
+  offer: {
+    title: string;
+    description: string;
+  };
+  autoTrigger?: boolean;
 }
 
-// Set autoTrigger to false and use the triggerQuery cb arg to trigger query manually
-export const useLogin = (
+export const useCreateOffer = (
   {
-    email,
-    password,
+    offer,
     autoTrigger = true,
-  }: LoginProps
-): ApiResponseData<LoginResponseData> => {
-
-  const { setAuthenticated, setUser } = useContext<AuthContext>(AuthContext);
+  }: CreateOfferProps
+): ApiResponseData<CreateOfferResponseData> => {
 
   const [query, setQuery] = useState<GraphQlQuery>();
-  const [data, setData] = useState<LoginResponseData>();
+  const [data, setData] = useState<CreateOfferResponseData>();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ApiResponseError>();
+
+  const { title, description } = offer;
 
   useEffect(() => {
     setQuery({
       query: `
         mutation {
-          login(email: "${email}", password: "${password}") {
-            user {
-              id
-              username
-              email
-            }
+          createOffer(data: {
+            title: "${title}",
+            description: "${description}"
+          }) {
+            id
+            title
+            description
+            status
+            updatedAt
           }
         }
       `
     });
-  }, [email, password]);
+  }, [title, description]);
 
 
   const makeRequest = useCallback(async () => {
-    const queryResult = await handleGraphQlQuery<LoginResponseData>(query!);
+    const queryResult = await handleGraphQlQuery<CreateOfferResponseData>(query!);
     setData(queryResult.data);
-
-    if (queryResult.data?.login?.user) {
-      // update context
-      setAuthenticated(true);
-      setUser(queryResult.data?.login?.user);
-    }
-
     setErrors(queryResult.errors);
-  }, [query, setAuthenticated, setUser]);
+  }, [query]);
 
   useEffect(() => {
     if (autoTrigger && query) {

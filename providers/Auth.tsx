@@ -1,6 +1,6 @@
 import React, { ReactNode, ReactElement } from 'react';
 import { API_BASE_URL } from '../shared/constants';
-import { User } from '../shared/types/user';
+import { User } from '../shared/types/user.type';
 
 export type AuthContext = {
   isAuthenticated: boolean;

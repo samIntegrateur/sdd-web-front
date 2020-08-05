@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types';
 import { handleGraphQlQuery } from '../../utils';
 import { AuthContext } from '../../../../providers/Auth';
-import { User } from '../../../types/user';
+import { User } from '../../../types/user.type';
 
 interface RegisterResponseData {
   register: User,

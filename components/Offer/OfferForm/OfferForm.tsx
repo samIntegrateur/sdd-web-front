@@ -1,100 +1,62 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { FormType, HTMLFormControlElement } from '../../../shared/types/form.type';
 import { updateForm } from '../../../shared/form-utils';
-import Spinner from '../../UI/Spinner/Spinner';
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
-import Link from 'next/link';
-import Title from '../../UI/Title/Title';
-import { useRegister } from '../../../shared/api/user/register/register';
-import { useRouter } from 'next/router';
+import { useCreateOffer } from '../../../shared/api/offer/createOffer/createOffer';
+import Spinner from '../../UI/Spinner/Spinner';
 import ServerErrors from '../../UI/ServerErrors/ServerErrors';
 
-const InscriptionForm: React.FC = () => {
-
-  const router = useRouter();
+const OfferForm: React.FC = () => {
 
   // Form setup
   const initialForm: FormType = {
-    username: {
+    title: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Jean Dupont'
+        placeholder: 'Mon annonce'
       },
-      label: 'Nom d\'utilisateur',
+      label: "Titre",
       value: '',
       validation: {
         required: true,
         minLength: 3,
-        maxLength: 15,
+        maxLength: 30,
       },
       valid: false,
       touched: false
     },
-    email: {
-      elementType: 'input',
+    description: {
+      elementType: 'textarea',
       elementConfig: {
-        type: 'email',
-        placeholder: 'jeandupont@domain.com'
+        placeholder: 'Vélo bleu en bon état, à récupérer sur place...'
       },
-      label: 'E-mail',
+      label: 'Description',
       value: '',
       validation: {
         required: true,
-        isEmail: true
+        minLength: 3,
+        maxLength: 400,
       },
       valid: false,
       touched: false
     },
-    password: {
-      elementType: 'input',
-      elementConfig: {
-        type: 'password',
-        placeholder: '******'
-      },
-      label: 'Mot de passe',
-      value: '',
-      validation: {
-        required: true,
-        minLength: 6,
-        maxLength: 20,
-      },
-      valid: false,
-      touched: false
-    },
-    confirmPassword: {
-      elementType: 'input',
-      elementConfig: {
-        type: 'password',
-        placeholder: '******'
-      },
-      label: 'Confirmer le mot de passe',
-      value: '',
-      validation: {
-        required: true,
-        minLength: 6,
-        maxLength: 20,
-        isSame: 'password',
-      },
-      valid: false,
-      touched: false
-    }
   };
 
   const [controls, setControls] = useState<FormType>(initialForm);
   const [formIsValid, setFormIsValid] = useState<boolean>(false);
 
-  // Register hook
   const {
     data,
     loading,
     errors,
-    triggerQuery: triggerRegister
-  } = useRegister({
-    username: controls.username.value as string,
-    email: controls.email.value as string,
-    password:  controls.password.value as string,
+    triggerQuery: triggerCreateOffer,
+  } = useCreateOffer({
+    offer: {
+      title: controls.title.value as string,
+      description: controls.title.value as string,
+    },
     autoTrigger: false,
   });
 
@@ -119,7 +81,7 @@ const InscriptionForm: React.FC = () => {
   // Submit form
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    triggerRegister();
+    triggerCreateOffer();
   }
 
   // Handle display
@@ -137,8 +99,11 @@ const InscriptionForm: React.FC = () => {
 
   if (loading) {
     formDisplay = <Spinner />;
-  } else if (data?.register) {
-    router.push('/');
+  } else if (data?.createOffer) {
+    formDisplay = (
+      // todo: see offer link
+      <p>L'annonce a bien été créée.</p>
+    );
   } else {
     formDisplay = (
       <form onSubmit={handleSubmit}>
@@ -161,31 +126,24 @@ const InscriptionForm: React.FC = () => {
           <Button
             type="submit"
             disabled={!formIsValid}>
-            S'inscrire
+            Créer l'annonce
           </Button>
         </div>
 
-        <p>
-          <Link href="/connexion"><a>J'ai déjà un compte</a></Link>
-        </p>
       </form>
     );
+
   }
 
   return (
     <>
-      <Title type="h1" style="title1">
-        Connexion
-      </Title>
-
       {errors && (
-          <ServerErrors errors={errors} />
+        <ServerErrors errors={errors} />
       )}
 
       {formDisplay}
-
     </>
   );
 }
 
-export default InscriptionForm;
+export default OfferForm;
