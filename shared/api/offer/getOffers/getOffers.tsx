@@ -3,54 +3,48 @@ import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types
 import { handleGraphQlQuery } from '../../utils';
 import { Offer } from '../../../types/offer.type';
 
-interface CreateOfferResponseData {
-  createOffer: Offer;
+interface GetOffersResponseData {
+  getOffers: Offer[];
 }
 
-interface CreateOfferProps {
-  offer: {
-    title: string;
-    description: string;
-  };
+interface GetOffersProps {
   autoTrigger?: boolean;
 }
 
-export const useCreateOffer = (
+export const useGetOffers = (
   {
-    offer,
     autoTrigger = true,
-  }: CreateOfferProps
-): ApiResponseData<CreateOfferResponseData> => {
+  }: GetOffersProps
+): ApiResponseData<GetOffersResponseData> => {
 
   const [query, setQuery] = useState<GraphQlQuery>();
-  const [data, setData] = useState<CreateOfferResponseData>();
+  const [data, setData] = useState<GetOffersResponseData>();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ApiResponseError>();
-
-  const { title, description } = offer;
 
   useEffect(() => {
     setQuery({
       query: `
-        mutation {
-          createOffer(data: {
-            title: "${title}",
-            description: "${description}"
-          }) {
+        {
+          getOffers {
             id
+            updatedAt
             title
             description
             status
-            updatedAt
+            imageUrl
+            author {
+              username
+            }
           }
         }
       `
     });
-  }, [title, description]);
+  }, []);
 
 
   const makeRequest = useCallback(async () => {
-    const queryResult = await handleGraphQlQuery<CreateOfferResponseData>(query!);
+    const queryResult = await handleGraphQlQuery<GetOffersResponseData>(query!);
     setData(queryResult.data);
     setErrors(queryResult.errors);
   }, [query]);

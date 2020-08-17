@@ -30,6 +30,9 @@ const IndexPage = () => {
           )
       }
 
+      <Section containerFull>
+        <Button type="a" href='/annonces'>Voir les dernières offres</Button>
+      </Section>
 
       <Section containerFull>
         <p>

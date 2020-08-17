@@ -185,7 +185,6 @@
   /*
      TITLE
   */
-
   --title-line-height: var(--line-height-sm);
 
   --title1-color: var(--white);
@@ -262,6 +261,34 @@
 
   --badge-secondary-color: #fff;
   --badge-secondary-bg-color: var(--secondary-color);
+
+  /*
+     OFFER PREVIEW
+  */
+  --offer-preview-border-width: 1px;
+  --offer-preview-border-style: solid;
+  --offer-preview-border-color: var(--white);
+  --offer-preview-border-radius: 5px;
+  --offer-preview-border-hover: var(--link-color);
+  --offer-preview-title-hover: var(--link-color);
+
+  --offer-preview-font-size: inherit;
+  --offer-preview-color: var(--white);
+  --offer-preview-bg-color: transparent;
+
+  --offer-preview-img-width: 23rem;
+  --offer-preview-img-height: 15rem;
+
+  --offer-preview-content-padding: var(--space-md) var(--space-lg);
+
+  --offer-preview-author-width: 12.8rem;
+  --offer-preview-author-font-size: 1.1rem;
+  --offer-preview-author-color: inherit;
+  --offer-preview-author-bg-color: var(--gray-slate-2);
+  --offer-preview-author-figure-bg: var(--gray-slate);
+  --offer-preview-author-figure-border-radius: 50%;
+  --offer-preview-author-img-width: 8.8rem;
+  --offer-preview-author-img-height: 8.8rem;
 }
 
 /*

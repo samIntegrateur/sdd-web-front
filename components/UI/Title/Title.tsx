@@ -9,11 +9,17 @@ interface TitleProps {
   style: titleStyle,
   type: titleType,
   margin?: titleMargin,
+  customClass?: string,
 }
 
 const Title: React.FC<PropsWithChildren<TitleProps>> = (props) => {
 
   const classList = [classes.title];
+
+  if (props.customClass) {
+    classList.push(props.customClass);
+  }
+
   let titleElement: JSX.Element;
 
   switch (props.style) {

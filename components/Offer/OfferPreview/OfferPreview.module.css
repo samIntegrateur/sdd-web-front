@@ -1,0 +1,93 @@
+.offerPreview {
+  display: block;
+  text-decoration: none;
+
+  border-radius: var(--offer-preview-border-radius);
+  border-color: var(--offer-preview-border-color);
+  border-width: var(--offer-preview-border-width);
+  border-style: var(--offer-preview-border-style);
+
+  font-size: var(--offer-preview-font-size);
+  color: var(--offer-preview-color);
+  background-color: var(--offer-preview-bg-color);
+
+  overflow: hidden;
+
+  transition: border-color ease-out 0.15s;
+
+  &:hover,
+  &:focus {
+    color: var(--offer-preview-color);
+    border-color: var(--offer-preview-border-hover);
+
+    & .offerPreview__title {
+      color: var(--offer-preview-title-hover);
+    }
+  }
+}
+
+.offerPreview__wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.offerPreview__figure {
+
+}
+
+.offerPreview__img {
+  width: var(--offer-preview-img-width);
+  height: var(--offer-preview-img-height);
+  object-fit: cover;
+}
+
+.offerPreview__content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--offer-preview-content-padding);
+}
+
+.offerPreview__header {
+
+}
+
+.offerPreview__body {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.offerPreview__title {
+  transition: color ease-out 0.15s;
+}
+
+.offerPreview__author {
+  text-align: center;
+  width: var(--offer-preview-author-width);
+  font-size: var(--offer-preview-author-font-size);
+  color: var(--offer-preview-author-color);
+  background-color: var(--offer-preview-author-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.offerPreview__authorFigure {
+  overflow: hidden;
+  background-color: var(--offer-preview-author-figure-bg);
+  border-radius: var(--offer-preview-author-figure-border-radius);
+  width: var(--offer-preview-author-img-width);
+  height: var(--offer-preview-author-img-height);
+  margin: 0 auto var(--space-md);
+}
+
+.offerPreview__authorImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offerPreview__authorName {
+  font-size: var(--offer-preview-author-font-size);
+}

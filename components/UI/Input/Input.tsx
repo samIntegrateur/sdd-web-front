@@ -83,7 +83,7 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
       inputElement = <textarea
         className={classes.formGroup__control}
         {...elementConfig}
-        value={inputDisplayValue}
+        {...valueProp}
         ref={autocomplete ? inputRef : null}
         onChange={changed} />;
       break;
@@ -91,7 +91,7 @@ const Input: React.FC<InputProps> = ({config, changed}: InputProps) => {
       inputElement = (
         <select
           className={classes.formGroup__control}
-          value={inputDisplayValue}
+          {...valueProp}
           onChange={changed}>
           {elementConfig && elementConfig.options && elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>
