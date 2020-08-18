@@ -3,22 +3,24 @@ import { ApiResponseData, ApiResponseError, GraphQlQuery } from '../../api.types
 import { handleGraphQlQuery } from '../../utils';
 import { Offer } from '../../../types/offer.type';
 
-interface GetOffersResponseData {
-  getOffers: Offer[];
+interface GetOfferResponseData {
+  getOffer: Offer;
 }
 
-interface GetOffersProps {
+interface GetOfferProps {
+  id: string;
   autoTrigger?: boolean;
 }
 
-export const useGetOffers = (
+export const useGetOffer = (
   {
+    id,
     autoTrigger = true,
-  }: GetOffersProps
-): ApiResponseData<GetOffersResponseData> => {
+  }: GetOfferProps
+): ApiResponseData<GetOfferResponseData> => {
 
   const [query, setQuery] = useState<GraphQlQuery>();
-  const [data, setData] = useState<GetOffersResponseData>();
+  const [data, setData] = useState<GetOfferResponseData>();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ApiResponseError>();
 
@@ -26,12 +28,13 @@ export const useGetOffers = (
     setQuery({
       query: `
         {
-          getOffers {
+          GetOffer(id: "${id}") {
             id
             updatedAt
             title
+            description
             status
-            thumbUrl
+            imageUrl
             author {
               username
             }
@@ -39,11 +42,11 @@ export const useGetOffers = (
         }
       `
     });
-  }, []);
+  }, [id]);
 
 
   const makeRequest = useCallback(async () => {
-    const queryResult = await handleGraphQlQuery<GetOffersResponseData>(query!);
+    const queryResult = await handleGraphQlQuery<GetOfferResponseData>(query!);
     setData(queryResult.data);
     setErrors(queryResult.errors);
   }, [query]);

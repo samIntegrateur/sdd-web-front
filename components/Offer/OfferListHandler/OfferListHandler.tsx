@@ -12,7 +12,6 @@ const OfferListHandler: React.FC = () => {
     errors,
   } = useGetOffers({});
 
-
   let offerListDisplay;
 
   if (loading) {

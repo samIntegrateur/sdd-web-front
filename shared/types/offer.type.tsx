@@ -8,12 +8,13 @@ export enum OfferStatus {
   CANCELED = 'CANCELED',
 }
 
+// todo: for previews make an OfferPreview or Partial<Offer> type ?
 export interface Offer extends Timestamps {
   id: string;
   title: string;
   description: string;
   imageUrl?: string;
   thumbUrl?: string;
-  author: User;
+  author: Partial<User>;
   status: OfferStatus;
 }
