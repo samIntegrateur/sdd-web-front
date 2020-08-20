@@ -7,6 +7,7 @@ import Section from '../layout/Section/Section';
 import Headband from '../components/Headband/Headband';
 import { AuthContext } from '../providers/Auth';
 import Spinner from '../components/UI/Spinner/Spinner';
+import TestUpload from '../components/Offer/TestUpload';
 
 const IndexPage = () => {
 
@@ -16,6 +17,7 @@ const IndexPage = () => {
     <Layout
       title="Site du don"
       description="Site de dons d'objets. Offrez les objets qui vous encombrent et récupérez gratuitement ceux des autres">
+
 
       {
         isLoading ? (
@@ -29,6 +31,10 @@ const IndexPage = () => {
             <Headband />
           )
       }
+
+      <Section containerSmall>
+        <TestUpload />
+      </Section>
 
       <Section containerFull>
         <Button type="a" href='/annonces'>Voir les dernières offres</Button>

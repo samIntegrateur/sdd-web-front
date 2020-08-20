@@ -17,13 +17,13 @@ const checkResponse = (response: Response) => {
   }
 }
 
-const fetchGraphql = async (query: GraphQlQuery): Promise<Response> => {
+const fetchGraphql = async (query: GraphQlQuery, isMultipart: boolean): Promise<Response> => {
 
   const response = await fetch(`${API_BASE_URL}/graphql`, {
     method: 'POST',
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': isMultipart ? 'multipart/form-data' : 'application/json',
     },
     body: JSON.stringify(query),
   });
@@ -93,12 +93,13 @@ const handleResponseErrors = (
 
 export const handleGraphQlQuery = async<T>(
   query: GraphQlQuery,
+  isMultipart = false,
 ): Promise<QueryResult<T>> => {
 
   let data, errors;
 
   try {
-    const response = await fetchGraphql(query!);
+    const response = await fetchGraphql(query!, isMultipart);
     const responseData: ApiResponse<T> = await response.json();
 
     if (responseData.errors && responseData.errors.length) {
