@@ -17,7 +17,7 @@ const OfferForm: React.FC = () => {
         type: 'text',
         placeholder: 'Mon annonce'
       },
-      label: "Titre",
+      label: 'Titre',
       value: '',
       validation: {
         required: true,

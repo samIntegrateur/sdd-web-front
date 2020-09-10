@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { handleGraphQlQuery } from '../../shared/api/utils';
 import { API_BASE_URL } from '../../shared/constants';
 
 const TestUpload: React.FC = () => {
@@ -18,31 +19,29 @@ const TestUpload: React.FC = () => {
     if (image) {
       const formData = new FormData();
 
+      // formData.append("operations", "{\"query\":\"mutation uploadOfferPicture($picture: Upload!) {\\n uploadOfferPicture(picture: $picture)\\n}\"}");
+      // formData.append("map", "{\"0\": [\"variables.picture\"]}");
+      // formData.append("0", image);
+
+
       // https://stackoverflow.com/questions/59043021/how-do-i-upload-files-to-a-graphql-backend-implemented-using-graphql-upload-usin
       try {
-        const query = `
-          mutation createOffer($offerData: OfferInput!) {
-            createOffer(data: $offerData) {
-              id
-              title
-              description
-              imageUrl
+        const query = {
+          query: `
+            mutation uploadOfferPicture($picture: Upload!) {
+              uploadOfferPicture(picture: $picture)
             }
+          `,
+          variables: {
+            picture: image,
           }
-        `;
-
-        const offerData = {
-          title: 'lorem',
-          description: 'description',
-          image: null,
-        }
-
-        const map = {
-          "0": ["variables.offerData.image"]
         };
 
-        const operations = JSON.stringify({ query, variables: { offerData } });
-        formData.append("operations", operations);
+        const map = {
+          "0": ["variables.picture"]
+        };
+
+        formData.append("operations", JSON.stringify(query));
         formData.append("map", JSON.stringify(map));
         formData.append("0", image);
 
