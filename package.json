@@ -18,7 +18,7 @@
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "class-validator": "^0.12.2"
+    "class-validator": "^0.14.0"
   },
   "devDependencies": {
     "@svgr/cli": "^5.4.0",
